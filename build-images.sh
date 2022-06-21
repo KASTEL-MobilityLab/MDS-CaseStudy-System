@@ -5,14 +5,14 @@ source "$NVM_DIR/nvm.sh"
 git clone --branch="$REPO_BRANCH" "$REPO_URL"
 cd mds-core
 
-#Dockerfiles are broken in Docker 18.0 and newer. We fix them here
-for dir in container-images/*
-do
-    sed -i 's#COPY dist/\* \.#COPY dist/* ./#' $dir/Dockerfile
-done
-
 nvm install
+npm install -g pnpm@6.32.11
+#pnpm config set auto-install-peers=true
+echo "installation von pnpm über npm klappt"
+pnpm --version
+which pnpm
 pnpm install
+echo "pnpm install klappt"
 
-pnpm $@
+#pnpm $@
 
