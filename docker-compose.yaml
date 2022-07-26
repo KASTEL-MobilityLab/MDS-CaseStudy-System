@@ -2,18 +2,32 @@
 # yamllint disable rule:line-length
 version: "3.7"
 
+volumes:
+  pgadmin: {}
+  postgresql-data: {}
+
 services:
   postgres:
     image: bitnami/postgresql:13
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - PG_USER=postgres
-      - PG_PASS=postgres
+      - POSTGRESQL_PASSWORD=postgres
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_DATABASE=mdscore
     volumes:
       - ./db-init-scripts:/docker-entrypoint-initdb.d
-      
+      - postgresql-data:/bitnami/postgresql
+  
+  pgadmindb:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=user@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=pgadmin_password
+    ports:
+      - 8088:80
+    volumes:
+      - pgadmin:/var/lib/pgadmin   
 
   redis:
     image: "redis:alpine"
@@ -29,6 +43,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
 
@@ -38,6 +53,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
     
@@ -47,6 +63,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
   
   mds-audit-service:
@@ -55,6 +72,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
     
   
@@ -68,6 +86,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis 
 
   mds-compliance-api:
@@ -80,6 +99,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
   mds-config-api:
@@ -92,6 +112,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
   mds-geography-api:
@@ -108,6 +129,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
   mds-ingest-service:
@@ -116,6 +138,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
   
@@ -132,6 +155,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
   mds-policy-author-api:
@@ -144,6 +168,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
   mds-policy:
@@ -156,6 +181,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
   mds-transaction-api:
@@ -168,6 +194,7 @@ services:
       - PG_HOST=postgres
       - PG_USER=postgres
       - PG_PASS=postgres
+      - PG_NAME=mdscore
       - REDIS_HOST=redis
 
 
