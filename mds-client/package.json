@@ -2,6 +2,7 @@
   "name": "mds-client",
   "version": "1.0.0",
   "description": "Sends Requests to Agency API of mds-core",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "stream-chain": "^2.2.5",
     "stream-json": "^1.7.4"
+  },
+  "devDependencies": {
+    "@types/stream-chain": "^2.0.1",
+    "@types/stream-json": "^1.7.2"
   }
 }
