@@ -74,7 +74,10 @@ services:
       - PG_PASS=postgres
       - PG_NAME=mdscore
       - REDIS_HOST=redis
-    
+
+  mds-client:
+    build: ./mds-client
+    image: mds-client    
   
   mds-collector-api:
     image: mds-collector-api:master-e1aead86
