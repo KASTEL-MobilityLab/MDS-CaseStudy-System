@@ -74,9 +74,6 @@ function postData(postdata:any) {
     });    
 }
 
-//retry implementieren: heißt das, ich mache es 3 Mal oder so und schaue, was für einen Status Code ich zurück bekomme; als Abbruchbedingung 201?
-// bevor ich poste, kann ich ja einen get Request mit der device_id machen und schauen, was passiert, also ob 200 (?) zurück kommt, dann kein post request, oder?
-
 //setTimeout(parseJsonPostRequest, 60000);
 parseJsonPostRequest();
 

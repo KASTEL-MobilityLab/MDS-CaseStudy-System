@@ -23,7 +23,7 @@ For sending fake data to the agency which saves it in the database:
   * Add server postgres with password, username, server: postgres
   * Click on the symbol on the left upper part of the window with database symbol and run arrow, then you can insert the SQL query:
   DELETE FROM devices WHERE true
-  * In the docker container mds-client, the script for adding vehicles to the database will be executed, you can test if it has worked through the pgadmin site, typing: SELECT * from devices, there should be 291 entries in it. You also get a response in the command line, if it has worked.
+  * In the docker container mds-client, the script for adding vehicles to the database will be executed, you can test if it has worked through the pgadmin site, typing: SELECT * from devices, there should be 291 entries in it. You also get a response in the command line of the docker container (docker logs CONTAINER_ID), if it has worked.
   
 If you want to send other data to the agency, just follow the first instruction part, then copy the generated provider_status_changes.json file into the mds-client folder and rename it provider_status_changes.json (replace or delete the other file in the folder with the same name)
   
