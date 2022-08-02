@@ -14,4 +14,4 @@ nvm install
 pnpm install
 
 docker buildx create --use
-pnpm run images
+pnpm run $@
