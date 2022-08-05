@@ -1,0 +1,13 @@
+@startuml
+package "mds-core" {
+  [other components] - REST0
+  [mds_provider] - REST
+  [mds_agency] - REST1
+  [mds_agency] -- [postgres_db]
+}
+
+
+[mds-client] ..> REST1: use
+
+
+@enduml
