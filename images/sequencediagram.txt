@@ -1,0 +1,20 @@
+@startuml
+mds_provider_services -> mds_provider_services: generate JSON file
+
+-> mds_client: input JSON file
+
+loop through JSON file
+
+    mds_client -> mds_agency : GET Request
+    
+    database postgres_db as DB
+
+    alt status404
+
+        mds_client -> mds_agency: POST Request
+        mds_agency -> DB: write to db
+
+    end
+
+end
+@enduml
