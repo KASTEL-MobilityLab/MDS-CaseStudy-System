@@ -7,8 +7,14 @@ This is a Case Study for security research in the mobility sector using modules 
 ## Overview of the `mds-casestudy-system`
 
 ![Used Components of mds-core together with mds-client](images/componentdiagram_mds-client.png)
+Used Components of mds-core together with mds-client
 
 ![Used Components for generating data](images/componentdiagram_gen-data.png)
+Used Components for generating data
+
+
+## Process of generating data and inserting it in mds-core via mds-client
+![Process of generating data and inserting it in mds-core via mds-client](images/sequencediagram.png)
 
 ## Usage
 
@@ -49,9 +55,6 @@ For sending fake data to the agency which saves it in the database: (after follo
   ```
 
 If you want to send other requests to the mds-agency, there is [documentation](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/agency) about the API Endpoints, what methods do exist and what parameters are required.
-
-
-![Process of generating data and inserting it in mds-core via mds-client](images/sequencediagram.png)
 
 
 #### Authentication handled through mds-client
