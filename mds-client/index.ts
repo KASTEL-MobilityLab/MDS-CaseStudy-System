@@ -7,7 +7,7 @@ import * as fs from "fs";
 import axios from "axios";
 import axiosRetry from "axios-retry";
 
-//JWT bearer_token has been generated out of provider_id which is just a normal uuid and is used to identify the provider
+//JWT bearer_token has been generated out of provider_id which is just a random uuid and is used to identify the provider
 var bearer_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1N2YxZTA2Mi04NzY2LTRkMDMtYjhjYy00ZTMyYmFmOWRmNmIiLCJodHRwczovL29wZW5tb2JpbGl0eWZvdW5kYXRpb24ub3JnL3VzZXJfZW1haWwiOiJ1c2VyQHRlc3QuYWkiLCJodHRwczovL29wZW5tb2JpbGl0eWZvdW5kYXRpb24ub3JnL3Byb3ZpZGVyX2lkIjoiYmRmODk2YWYtNjQyZC00NTk1LTg0MGItOTMwYzJhZGExZjYzIiwic2NvcGUiOiJhZG1pbjphbGwiLCJpYXQiOjE2NTc4MTEyMDV9.VW82ym6yOzGwWb6xoGiy3QD2NTd1ypvraSoMSaUNfdg";
 var bearer = 'Bearer ' + bearer_token;
 
@@ -17,35 +17,30 @@ const instance = axios.create({
     headers: {'Authorization': bearer}
     });
 
-axiosRetry(instance, { retries: 15 });    
-
-console.log("Instanz für API Requests erstellt");
+axiosRetry(instance, { retries: 15 });
 
 
 function parseJsonPostRequest() {
-  console.log("Funktion startet die Ausführung");
   const pipeline = new chain([
     fs.createReadStream('provider_status_changes.json'),
     parser(),
     new pick({filter: 'data.status_changes'}),
     new streamArray(),
-    data => {
+    async data => {
       const value = data.value;
       const postdata = {
         device_id: value.device_id, vehicle_id: value.vehicle_id, vehicle_type: value.vehicle_type, propulsion_types: value.propulsion_type
       };
       var url_device_id = '/vehicles/' + value.device_id
-      instance.get(url_device_id, {
+      await instance.get(url_device_id, {
           headers: {
                 'Content-Type': 'application/json'
             },
           }).then(function (response) {
-            console.log("Get request done");
             console.log(response.status);
             console.log(response.statusText);
           }).catch(function (error) {
-            if (error.response.status == 404){
-              console.log("Post Data");
+            if (error.response.status == 404){ //means, no vehicle found for that device_id
               postData(postdata);
             }
             
@@ -63,7 +58,6 @@ function postData(postdata:any) {
         'Content-Type': 'application/json'
       },
     }).then(function (response) {
-      console.log("Post request done, device added")
       console.log(response.status)
       console.log(response.statusText) //Created
     }).catch(function (error) { 
@@ -74,14 +68,7 @@ function postData(postdata:any) {
     });    
 }
 
-//setTimeout(parseJsonPostRequest, 60000);
+//setTimeout(parseJsonPostRequest, 60000); //only for debugging reasons to be able to read the log
 parseJsonPostRequest();
-
-
-
-
-  
-
-
 
 
