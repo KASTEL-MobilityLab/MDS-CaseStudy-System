@@ -6,7 +6,9 @@ This is a Case Study for security research in the mobility sector using modules 
 
 ## Overview of the `mds-casestudy-system`
 
-![Overview MDS-CaseStudy-System](structure-overview.png)
+![Used Components of mds-core together with mds-client](images/componentdiagram_mds-client.png)
+
+![Used Components for generating data](images/componentdiagram_gen-data.png)
 
 ## Usage
 
@@ -49,6 +51,9 @@ For sending fake data to the agency which saves it in the database: (after follo
 If you want to send other requests to the mds-agency, there is [documentation](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/agency) about the API Endpoints, what methods do exist and what parameters are required.
 
 
+![Process of generating data and inserting it in mds-core via mds-client](images/sequencediagram.png)
+
+
 #### Authentication handled through mds-client
 
 There is some authentication required for accessing mds-agency which is already built into the mds-client.
@@ -88,6 +93,9 @@ When you start the application with docker-compose, there is also a pgadmin clie
   ``` sql
   SELECT * from devices
   ```
+
+![Screenshot PgAdmin](images/screenshot-pgadmin.png)
+
   There should be 291 entries in it (in the JSON file there are about 7000 but a lot of duplicates). You also get a response in the command line of the docker container (docker logs CONTAINER_ID), if it has worked.
   
 If you want to send other generated data to the agency, just follow the first instruction part, then copy the generated provider_status_changes.json file into the mds-client folder and rename it provider_status_changes.json (replace or delete the other file in the folder with the same name)
@@ -117,9 +125,19 @@ Also changed the `mds-provider` because of a syntax error in calculating the sum
 
 ## Helpful remarks
 
-* When using mds-core locally, make sure, the right version of pnpm is installed! Although the version number was specified in the package.json, I had to manually deinstall and reinstall pnpm with npm install -g pnpm@6.32.11
+* When using mds-core locally, make sure, the right version of pnpm is installed! Although the version number was specified in the package.json, I had to manually deinstall and reinstall pnpm with `npm install -g pnpm@6.32.11`
 * If mds-core gets a new version tag, you have to manually update that in the docker-compose file of this repo (because pnpm doesn't build on tag:latest)
 * Don't miss the environment variables (PG_USER=PG_PASS=postgres, PG_HOST=postgres (Name of the service in the docker-compose file), REDIS_HOST=redis) for the docker-compose file, they are essential to create the connection between the services on one side and the Postgres DB and Redis on the other side
 * To create a new database, insert POSTGRESQL_DATABASE=NAME_OF_DATABASE in the postgres-Part of the docker-compose file
-* If you want to send requests to the mds-agency from outside the docker-compose network, you have to use the IP-Address of that container and the port 4000
+* If you want to send requests to the mds-agency from outside the docker-compose network, you have to use the IP-Address of that container and the port 4000, all information can also be found in the [documentation](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/agency)
   
+
+## Future Work
+
+`mds-core` consists of many other modules than `mds-agency` that were not considered yet. Only the API endpoint `/vehicles` and its GET and POST method were used. E.g. there are other endpoints of `mds-agency` like `/vehicles/{device_id}/event`, but in the two generated data files were not all the information needed for this endpoint. In the generated file `status_changes` there was an event_type field but filled with the possible values of vehicle_state and there wasn't a vehicle_state field.
+Required fields for this endpoint can be found [here](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/agency#vehicle---event) and [here](https://github.com/openmobilityfoundation/mobility-data-specification/blob/main/general-information.md#vehicle-state-events) is the documentation for the matching between `vehicle_state` and `event_type`.
+
+The second generated file `trips.json` wasn't considered yet because of the time left, but should be considered with the module `mds-provider` rather than `mds-agency`. The endpoints and the documentation for this module can be found [here](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/provider) especially look at the endpoint [trips](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/provider#trips) cause all the required fields of this endpoint can be found in the generated file so you can directly work with it.
+
+For the `mds-client` one can also think of parsing and streaming multiple JSON files or adding every 10 minutes new data to the database.
+
