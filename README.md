@@ -7,9 +7,11 @@ This is a Case Study for security research in the mobility sector using modules 
 ## Overview of the `mds-casestudy-system`
 
 ![Used Components of mds-core together with mds-client](images/componentdiagram_mds-client.png)
+
 Used Components of mds-core together with mds-client
 
 ![Used Components for generating data](images/componentdiagram_gen-data.png)
+
 Used Components for generating data
 
 
