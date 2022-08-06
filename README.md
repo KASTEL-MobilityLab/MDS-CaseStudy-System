@@ -131,6 +131,7 @@ Also changed the `mds-provider` because of a syntax error in calculating the sum
 ## Helpful remarks
 
 * When using mds-core locally, make sure, the right version of pnpm is installed! Although the version number was specified in the package.json, I had to manually deinstall and reinstall pnpm with `npm install -g pnpm@6.32.11`
+Otherwise there will be error messages like module not found, cannot find module `geojson` or `google-cloud-spanner`
 * If mds-core gets a new version tag, you have to manually update that in the docker-compose file of this repo (because pnpm doesn't build on tag:latest)
 * Don't miss the environment variables (PG_USER=PG_PASS=postgres, PG_HOST=postgres (Name of the service in the docker-compose file), REDIS_HOST=redis) for the docker-compose file, they are essential to create the connection between the services on one side and the Postgres DB and Redis on the other side
 * To create a new database, insert POSTGRESQL_DATABASE=NAME_OF_DATABASE in the postgres-Part of the docker-compose file
