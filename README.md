@@ -10,9 +10,13 @@ This is a Case Study for security research in the mobility sector using modules 
 
 Used Components of mds-core together with mds-client
 
+mds-core consists of several modules, such as mds-agency, mds-provider and others. In this project, only `mds-agency` is used. It offers a REST-Interface and methods which are used by the mds-client. mds-agency is also connected to a postgres database where the data is stored. 
+
 ![Used Components for generating data](images/componentdiagram_gen-data.png)
 
 Used Components for generating data
+
+mds-provider-services is based on mds-provider and consists of several modules. One of them is the `fake` module that can generate fake mobility data. In this project, fake data was generated because we don't have access to real mobility data from mds-providers, but that data is sufficient for our purposes. The fake data will be inserted in the mds-client which will send it to the mds-agency.
 
 
 ## Process of generating data and inserting it in mds-core via mds-client
@@ -64,7 +68,7 @@ If you want to send other requests to the mds-agency, there is [documentation](h
 There is some authentication required for accessing mds-agency which is already built into the mds-client.
 
 In fact, `mds-core` doesn't have a 'real' authentication. When you send a request to the mds-agency, you need to include a JWT Token which has to include the provider_id to authenticate and identify the right provider (and add the vehicle to the right provider e.g.). But the provider_id can be a random UUID. This UUID has to be used to calculate a JWT and then can be used as Authorization as a Bearer Token in the request.
-The secret of the JWT is the provider_id.
+The provider_id is encoded in the JWT.
 
 You need the authentication otherwise the request can't be related to a provider and thus fails.
 
@@ -101,14 +105,14 @@ When you start the application with docker-compose, there is also a pgadmin clie
 
 ![Screenshot PgAdmin](images/screenshot-pgadmin.png)
 
-  There should be 291 entries in it (in the JSON file there are about 7000 but a lot of duplicates). You also get a response in the command line of the docker container (docker logs CONTAINER_ID), if it has worked.
+  There should be 291 entries in it (in the JSON file there are about 7000 but a lot of duplicates). You also get a response in the command line of the docker container (can be read with docker logs CONTAINER_ID), if it has worked.
   
-If you want to send other generated data to the agency, just follow the first instruction part, then copy the generated provider_status_changes.json file into the mds-client folder and rename it provider_status_changes.json (replace or delete the other file in the folder with the same name)
+If you want to send other generated data to the agency, just follow the first instruction part on generating fake data, then copy the generated provider_status_changes.json file into the mds-client folder and rename it provider_status_changes.json (replace or delete the other file in the folder with the same name)
 
 
 ### MDS-Provider-Services
 
-`mds-provider-services` also includes a pgadmin client, but when you just follow the instructions on the github site of the repo, you get permission conflicts, cause the user pgadmin is not allowed to write into the directory /var/lib/pgadmin. There are two solutions, 
+`mds-provider-services` also includes a pgadmin client, but when you just follow the instructions on the github site of the repo, you get permission conflicts, cause the user pgadmin is not allowed to write into the directory /var/lib/pgadmin. There are two solutions: 
 - in the docker-compose file, mount another folder to that place so that docker decides where to save it without permission conflict: 
 ```sh
 volumes:
@@ -130,12 +134,12 @@ Also changed the `mds-provider` because of a syntax error in calculating the sum
 
 ## Helpful remarks
 
-* When using mds-core locally, make sure, the right version of pnpm is installed! Although the version number was specified in the package.json, I had to manually deinstall and reinstall pnpm with `npm install -g pnpm@6.32.11`
+* When using `mds-core` locally, make sure, the right version of pnpm is installed! Although the version number was specified in the package.json, I had to manually deinstall and reinstall pnpm with `npm install -g pnpm@6.32.11`
 Otherwise there will be error messages like module not found, cannot find module `geojson` or `google-cloud-spanner`
-* If mds-core gets a new version tag, you have to manually update that in the docker-compose file of this repo (because pnpm doesn't build on tag:latest)
+* If `mds-core` gets a new version tag, you have to manually update that in the docker-compose file of this repo (because pnpm doesn't build on tag:latest)
 * Don't miss the environment variables (PG_USER=PG_PASS=postgres, PG_HOST=postgres (Name of the service in the docker-compose file), REDIS_HOST=redis) for the docker-compose file, they are essential to create the connection between the services on one side and the Postgres DB and Redis on the other side
 * To create a new database, insert POSTGRESQL_DATABASE=NAME_OF_DATABASE in the postgres-Part of the docker-compose file
-* If you want to send requests to the mds-agency from outside the docker-compose network, you have to use the IP-Address of that container and the port 4000, all information can also be found in the [documentation](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/agency)
+* If you want to send requests to the `mds-agency` from outside the docker-compose network, you have to use the IP-Address of that container and the port 4000, all information can also be found in the [documentation](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/agency)
   
 
 ## Future Work
