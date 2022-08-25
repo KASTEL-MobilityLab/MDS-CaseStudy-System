@@ -127,8 +127,8 @@ Restart docker-compose and login with
 - password: pgadmin_password
 
 
-Modified `mds-provider-services` because of wrong schema-url, set another default value which works now. There was a change between the versions of mds in the naming of the files and also the schema of the json file. And after the changes the `mds-provider` repo wasn't maintained anymore.
-Also changed the `mds-provider` because of a syntax error in calculating the sum. Therefore changed the dependent git repo for `mds-provider-services` to the forked one with the correct sum calculation. 
+I modified `mds-provider-services` because of a wrong schema-url and set another default value which works now. There was a change between the versions of mds in the naming of the files and also the schema of the json file. After the changes were done in mds, the `mds-provider` repo wasn't maintained anymore.
+I also changed the `mds-provider` because of a syntax error in calculating the sum. Therefore I changed the dependent git repo for `mds-provider-services` to the forked one with the correct sum calculation. 
 
 
 
@@ -140,7 +140,7 @@ Otherwise there will be error messages like module not found, cannot find module
 * Don't miss the environment variables (PG_USER=PG_PASS=postgres, PG_HOST=postgres (Name of the service in the docker-compose file), REDIS_HOST=redis) for the docker-compose file, they are essential to create the connection between the services on one side and the Postgres DB and Redis on the other side
 * To create a new database, insert POSTGRESQL_DATABASE=NAME_OF_DATABASE in the postgres-Part of the docker-compose file
 * If you want to send requests to the `mds-agency` from outside the docker-compose network, you have to use the IP-Address of that container and the port 4000, all information can also be found in the [documentation](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/agency)
-* If you use [Postman](https://www.postman.com/) to send API Requests (I used it before I wrote the `mds-client`), make sure, you set the body either on form-data or on raw and then select JSON
+* If you use [Postman](https://www.postman.com/) to send API Requests (I used it before I wrote the `mds-client`), make sure, you set the body either to form-data or to raw and then select JSON
   
 
 ## Future Work
