@@ -67,7 +67,7 @@ If you want to send other requests to the mds-agency, there is [documentation](h
 
 There is some authentication required for accessing mds-agency which is already built into the mds-client.
 
-In fact, `mds-core` doesn't have a 'real' authentication. When you send a request to the mds-agency, you need to include a JWT Token which has to include the provider_id to authenticate and identify the right provider (and add the vehicle to the right provider e.g.). But the provider_id can be a random UUID. This UUID has to be used to calculate a JWT and then can be used as Authorization as a Bearer Token in the request.
+In fact, `mds-core` doesn't have a 'real' authentication. When you send a request to the mds-agency, you need to include a JWT Token which has to include the provider_id to authenticate and identify the right provider (and add the vehicle to the right provider e.g.). But the provider_id can be a random UUID. This UUID has to be used to calculate a JWT and then can be used as Authorization as a Bearer Token in the request. You can e.g. take a provider_id from the generated fake-data file or generate a UUID yourself.
 The provider_id is encoded in the JWT.
 
 You need the authentication otherwise the request can't be related to a provider and thus fails.
@@ -93,7 +93,7 @@ When you start the application with docker-compose, there is also a pgadmin clie
   * Login with 
     - Username: user@domain.com
     - Password: pgadmin_password
-  * Add server postgres with password and server: postgres
+  * Add server postgres with hostname, username and password: postgres (you can name the server as you wish)
   * Click on the symbol on the left upper part of the window with database symbol and run arrow, then you can insert the SQL query:
   ```sql
   DELETE FROM devices WHERE true
@@ -140,6 +140,7 @@ Otherwise there will be error messages like module not found, cannot find module
 * Don't miss the environment variables (PG_USER=PG_PASS=postgres, PG_HOST=postgres (Name of the service in the docker-compose file), REDIS_HOST=redis) for the docker-compose file, they are essential to create the connection between the services on one side and the Postgres DB and Redis on the other side
 * To create a new database, insert POSTGRESQL_DATABASE=NAME_OF_DATABASE in the postgres-Part of the docker-compose file
 * If you want to send requests to the `mds-agency` from outside the docker-compose network, you have to use the IP-Address of that container and the port 4000, all information can also be found in the [documentation](https://github.com/openmobilityfoundation/mobility-data-specification/tree/main/agency)
+* If you use [Postman](https://www.postman.com/) to send API Requests (I used it before I wrote the `mds-client`), make sure, you set the body either on form-data or on raw and then select JSON
   
 
 ## Future Work
