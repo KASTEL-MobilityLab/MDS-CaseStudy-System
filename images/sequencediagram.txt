@@ -3,7 +3,7 @@ mds_provider_services -> mds_provider_services: generate JSON file
 
 -> mds_client: input JSON file
 
-loop through JSON file
+loop through entries in JSON file
 
     mds_client -> mds_agency : GET Request
     
