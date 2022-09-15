@@ -12,11 +12,6 @@ Used Components of mds-core together with mds-client
 
 mds-core consists of several modules, such as mds-agency, mds-provider and others. In this project, only `mds-agency` is used. It offers a REST-Interface and methods which are used by the mds-client. mds-agency is also connected to a postgres database where the data is stored. 
 
-![Used Components for generating data](images/componentdiagram_gen-data.png)
-
-Used Components for generating data
-
-mds-provider-services is based on mds-provider and consists of several modules. One of them is the `fake` module that can generate fake mobility data. In this project, fake data was generated because we don't have access to real mobility data from mds-providers, but that data is sufficient for our purposes. The fake data will be inserted in the mds-client which will send it to the mds-agency. The data consists among other fields of device-id, vehicle-id, vehicle-type, propulsion-type and event-type.
 
 
 ## Process of generating data and inserting it in mds-core via mds-client
