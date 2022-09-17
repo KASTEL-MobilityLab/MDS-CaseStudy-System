@@ -39,6 +39,7 @@ The docker socket of the host is being mounted into the docker socket of the con
 
 Remember, docker requires sudo rights and don't forget to make build-images.sh executable (chmod +x).
 
+Even if there are error warnings on redis while building or running `mds-core`, if docker builds the images successfully, the application should work correctly.
 If you have trouble, have a look at [this section](#helpful-remarks).
 
 ### Generate fake data
