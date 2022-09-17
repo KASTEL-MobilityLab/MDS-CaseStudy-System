@@ -144,9 +144,6 @@ services:
       - PG_NAME=mdscore
       - REDIS_HOST=redis
 
-  
-  #mds-ingest-migration-processor: #steht gar nicht als container-image auf Github...
-    #image:mds-ingest-migration-processor:
 
   mds-jurisdiction-api:
     image: mds-jurisdiction-api:master-e1aead86
