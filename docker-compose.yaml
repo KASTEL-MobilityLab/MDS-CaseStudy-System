@@ -38,7 +38,7 @@ services:
      - REDIS_REPLICATION_MODE=master
   
   mds-agency:
-    image: mds-agency:master-e1aead86
+    image: mds-agency:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -48,7 +48,7 @@ services:
 
 
   mds-attachment-service:
-    image: mds-attachment-service:master-e1aead86
+    image: mds-attachment-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -58,7 +58,7 @@ services:
 
     
   mds-audit-api:
-    image: mds-audit-api:master-e1aead86
+    image: mds-audit-api:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -67,7 +67,7 @@ services:
       - REDIS_HOST=redis
   
   mds-audit-service:
-    image: mds-audit-service:master-e1aead86
+    image: mds-audit-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -80,11 +80,11 @@ services:
     image: mds-client    
   
   mds-collector-api:
-    image: mds-collector-api:master-e1aead86
+    image: mds-collector-api:develop-6a9e2191
 
   
   mds-collector-service:
-    image: mds-collector-service:master-e1aead86
+    image: mds-collector-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -93,11 +93,11 @@ services:
       - REDIS_HOST=redis 
 
   mds-compliance-api:
-    image: mds-compliance-api:master-e1aead86
+    image: mds-compliance-api:develop-6a9e2191
 
   
   mds-compliance-service:
-    image: mds-compliance-service:master-e1aead86
+    image: mds-compliance-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -106,11 +106,11 @@ services:
       - REDIS_HOST=redis
 
   mds-config-api:
-    image: mds-config-api:master-e1aead86
+    image: mds-config-api:develop-6a9e2191
 
 
   mds-config-service:
-    image: mds-config-service:master-e1aead86
+    image: mds-config-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -119,15 +119,15 @@ services:
       - REDIS_HOST=redis
 
   mds-geography-api:
-    image: mds-geography-api:master-e1aead86
+    image: mds-geography-api:develop-6a9e2191
 
   
   mds-geography-author-api:
-    image: mds-geography-author-api:master-e1aead86
+    image: mds-geography-author-api:develop-6a9e2191
 
   
   mds-geography-service:
-    image: mds-geography-service:master-e1aead86
+    image: mds-geography-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -136,7 +136,7 @@ services:
       - REDIS_HOST=redis
 
   mds-ingest-service:
-    image: mds-ingest-service:master-e1aead86
+    image: mds-ingest-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -146,11 +146,11 @@ services:
 
 
   mds-jurisdiction-api:
-    image: mds-jurisdiction-api:master-e1aead86
+    image: mds-jurisdiction-api:develop-6a9e2191
 
 
   mds-jurisdiction-service:
-    image: mds-jurisdiction-service:master-e1aead86
+    image: mds-jurisdiction-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -159,11 +159,11 @@ services:
       - REDIS_HOST=redis
 
   mds-policy-author-api:
-    image: mds-policy-author-api:master-e1aead86
+    image: mds-policy-author-api:develop-6a9e2191
     
   
   mds-policy-service:
-    image: mds-policy-service:master-e1aead86
+    image: mds-policy-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -172,11 +172,11 @@ services:
       - REDIS_HOST=redis
 
   mds-policy:
-    image: mds-policy:master-e1aead86
+    image: mds-policy:develop-6a9e2191
     
   
   mds-provider-service:
-    image: mds-provider-service:master-e1aead86
+    image: mds-provider-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
@@ -185,11 +185,11 @@ services:
       - REDIS_HOST=redis
 
   mds-transaction-api:
-    image: mds-transaction-api:master-e1aead86
+    image: mds-transaction-api:develop-6a9e2191
 
 
   mds-transaction-service:
-    image: mds-transaction-service:master-e1aead86
+    image: mds-transaction-service:develop-6a9e2191
     environment:
       - PG_HOST=postgres
       - PG_USER=postgres
